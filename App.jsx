@@ -63,10 +63,8 @@ export default function GreetingCardGenerator() {
       formData.append('fontSize', fontSize);
 
       // Update this with your actual backend URL
-     const API_URL =
-  import.meta.env.VITE_API_URL ||
-  'https://greeting-card-generator-production.up.railway.app/api/process-image';
-
+  const API_URL =
+  import.meta.env.VITE_API_URL || '/api/process-image';
       const response = await fetch(API_URL, {
         method: 'POST',
         body: formData,

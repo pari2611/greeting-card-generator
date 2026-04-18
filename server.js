@@ -20,11 +20,17 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
-app.options('*', cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
+
+app.options('/api/process-image', cors());
+app.options('/api/batch-process', cors());
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
 // Configure multer for file uploads
 const upload = multer({
   storage: multer.memoryStorage(),

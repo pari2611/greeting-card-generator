@@ -13,6 +13,10 @@ const fs = require('fs').promises;
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
+app.use((req, res, next) => {
+  req.startTime = Date.now();
+  next();
+});
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -319,11 +323,6 @@ app.use((req, res) => {
 });
 
 // Request timing middleware
-app.use((req, res, next) => {
-  req.startTime = Date.now();
-  next();
-});
-
 // Start server
 app.listen(PORT, () => {
   console.log(`

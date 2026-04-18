@@ -4,13 +4,13 @@ Deploy on Railway, Render, or any Node.js hosting
 Uses Express.js + Sharp for professional image processing
 """
 
-const express = require('express');
-const cors = require('cors');
-const multer = require('multer');
-const sharp = require('sharp');
-const path = require('path');
-const fs = require('fs').promises;
-const { v4: uuidv4 } = require('uuid');
+import express from 'express';
+import cors from 'cors';
+import multer from 'multer';
+import sharp from 'sharp';
+import path from 'path';
+import fs from 'fs/promises';
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
 app.use((req, res, next) => {
@@ -306,6 +306,12 @@ app.use((err, req, res, next) => {
     code: 'INTERNAL_ERROR'
   });
 });
+/**
+ * Root route
+ */
+app.get('/', (req, res) => {
+  res.json({ message: 'API is running' });
+});
 
 /**
  * 404 handler
@@ -337,4 +343,4 @@ app.listen(PORT, () => {
   `);
 });
 
-module.exports = app;
+export default app;

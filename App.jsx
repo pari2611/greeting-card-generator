@@ -72,11 +72,18 @@ export default function GreetingCardGenerator() {
         body: formData,
       });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || `Server error: ${response.statusText}`);
-      }
+    if (!response.ok) {
+  let errorMessage = `Server error: ${response.status}`;
 
+  try {
+    const data = await response.json();
+    errorMessage = data.error || errorMessage;
+  } catch (e) {
+    // no json body, keep default message
+  }
+
+  throw new Error(errorMessage);
+}
       const data = await response.json();
       setProcessedImage(data.imageUrl);
       setSuccess(true);
